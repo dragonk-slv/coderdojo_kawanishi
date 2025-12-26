@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoderDojo川西</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+  <script defer>
+    // スムーススクロール (維持)
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function(e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth"
+          });
+        });
+      });
+
+      // 開催イベント切り替え（日付チェックロジックを含む）
+      const events = [
+        // 実際の日付に修正してください
+        { dateObj: new Date(new Date().getFullYear(), 10, 10), month: "今月", date: "11月10日(日)", place: "川西市立中央図書館 3階" },
+        { dateObj: new Date(new Date().getFullYear(), 11, 8), month: "来月", date: "12月8日(日)", place: "川西市立中央図書館 3階" },
+        { dateObj: new Date(new Date().getFullYear() + 1, 0, 12), month: "再来月", date: "1月12日(日)", place: "川西市立中央図書館 3階" }
+      ];
+
+      let currentIndex = 0;
+      const monthEl = document.getElementById("month");
+      const dateEl = document.getElementById("event-date");
+      const placeEl = document.getElementById("event-place");
+      const nextEventLink = document.getElementById("next-event-link");
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const futureEvents = events.filter(ev => ev.dateObj >= today);
+
+      function updateEvent() {
+        if (futureEvents.length === 0) {
+            monthEl.textContent = "未定";
+            dateEl.textContent = "次回の開催は未定です";
+            placeEl.textContent = "しばらくお待ちください";
+            nextEventLink.style.display = 'none'; // イベントがない場合はボタンを非表示
+            return;
+        }
+        
+        const ev = futureEvents[currentIndex % futureEvents.length];
+        monthEl.textContent = ev.month;
+        dateEl.textContent = ev.date;
+        placeEl.textContent = ev.place;
+        nextEventLink.style.display = 'inline-block';
+      }
+
+      document.getElementById("prev-btn").addEventListener("click", () => {
+        if (futureEvents.length > 0) {
+            currentIndex = (currentIndex - 1 + futureEvents.length) % futureEvents.length;
+            updateEvent();
+        }
+      });
+      document.getElementById("next-btn").addEventListener("click", () => {
+        if (futureEvents.length > 0) {
+            currentIndex = (currentIndex + 1) % futureEvents.length;
+            updateEvent();
+        }
+      });
+
+      updateEvent();
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <h1 class="logo">CoderDojo川西</h1>
+      <nav>
+        <ul>
+          <li><a href="#about-dojo">Dojo理念</a></li>
+          <li><a href="#events">開催予定</a></li>
+          <li><a href="#organizer">主催者</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<section id="hero" class="hero-section">
+  <div class="container">
+    <h2 class="hero-title">子どもたちの「つくりたい！」を形にする<br>無料のプログラミングクラブ</h2>
+    <p class="hero-subtitle">CoderDojo川西は、子どもたちがITを活用して、自由に、楽しく創造できる場所です。</p>
+    <a href="#events" class="cta-button">次回の開催を見る</a>
+  </div>
+</section>
+
+  
+<section id="about-dojo" class="about-section dark-bg">
+  <div class="container">
+    <h2 class="section-title">CoderDojoとは？</h2>
+    
+    <div class="row justify-content-center"> 
+      
+      <div class="col-lg-4 mb-4">
+          <div class="about-card p-4"> <h3>🐟 魚の釣り方を教える</h3>
+              <p>
+                問題にぶつかった時、答えを教えるのではなく、解決方法（調べ方、質問の仕方）を一緒に考え、自力で解決できる力を育みます。
+              </p>
+          </div>
+      </div>
+      
+      <div class="col-lg-4 mb-4">
+          <div class="about-card p-4">
+              <h3>🤝 一緒になって考える</h3>
+              <p>
+                教材やカリキュラムはありません。メンターは先生ではなく、子どもたちの「やりたい」に同じ目線で向き合う仲間です。
+              </p>
+          </div>
+      </div>
+      
+      <div class="col-lg-4 mb-4">
+          <div class="about-card p-4">
+              <h3>💻 自由な創造の場</h3>
+              <p>
+                ScratchやMinecraft、Web制作など、テクノロジーを使った自由な創造を応援します。初心者から経験者まで歓迎です。
+              </p>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section id="events" class="events-section">
+    <div class="container">
+      <h2 class="section-title">次回の開催予定</h2>
+      <div class="event-card">
+        <button id="prev-btn" class="nav-btn">◀</button>
+        <div class="event-info">
+          <h3 id="month" class="event-month"></h3>
+          <p id="event-date" class="event-detail"></p>
+          <p id="event-place" class="event-detail"></p>
+        </div>
+        <button id="next-btn" class="nav-btn">▶</button>
+      </div>
+      <a id="next-event-link" href="#" class="cta-button primary-cta">イベントに申し込む</a>
+    </div>
+  </section>
+
+<section id="organizer" class="organizer-section">
+  <div class="container">
+    <h2 class="section-title">運営・主催者情報</h2>
+    
+    <div class="row justify-content-center"> 
+      <div class="col-lg-4 text-center">
+          <img class="rounded-circle" width="260" height="260" src="Images/syusai.png" alt="主催者：飯干 功惺" focusable="false">
+          <h2>飯干 功惺</h2>
+          <h5>
+            <span class="badge rounded-pill bg-primary">Iiboshi Kosei</span>
+          </h5>
+      </div></div>
+    <p>
+      主催：CoderDojo川西運営チーム<br>
+      代表：○○ ○○<br>
+      連絡先：coderdojo.kawanishi@example.com
+    </p>
+  </div>
+</section>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 CoderDojo Kawanishi</p>
+    </div>
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
