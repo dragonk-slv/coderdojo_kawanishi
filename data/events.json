@@ -1,14 +1,16 @@
 [
   {
-    "title": "CoderDojo川西 第7回",
+    "title": "第7回 CoderDojo川西(宝塚)",
     "start": "2026-03-15T14:00:00+09:00",
-    "place": "アステ川西6階 市民プラザ",
+    "end": "2026-03-15T16:40:00+09:00",
+    "place": "アステ川西6階 市民プラザ アステギャラリー",
     "url": "https://coderdojo-takaraduka.connpass.com/event/387155/"
   },
   {
-    "title": "CoderDojo川西 第8回",
-    "start": "2026-04-19T14:00:00+09:00",
-    "place": "アステ川西6階 市民プラザ",
-    "url": "https://coderdojo-takaraduka.connpass.com/event/xxxxx/"
+    "title": "第8回 CoderDojo川西(宝塚)",
+    "start": "2026-04-12T14:00:00+09:00",
+    "end": "2026-04-12T16:40:00+09:00",
+    "place": "アステ川西6階 市民プラザ アステギャラリー",
+    "url": "https://coderdojo-takaraduka.connpass.com/event/xxxxxxxx/"
   }
 ]
