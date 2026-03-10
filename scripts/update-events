@@ -1,29 +1,37 @@
 import fs from "node:fs/promises";
 
-const CONNPASS_API_URL =
-  "https://connpass.com/api/v1/event/?series_id=3920&count=20&order=2";
-// ↑ series_id は実際のグループIDに置き換えてください
+const API_KEY = process.env.CONNPASS_API_KEY;
+const SERIES_ID = process.env.CONNPASS_SERIES_ID || "3920"; // 実際のseries_idに変更
+const API_URL = `https://connpass.com/api/v2/events?series_id=${SERIES_ID}&count=20&order=2`;
+
+if (!API_KEY) {
+  console.error("CONNPASS_API_KEY が設定されていません。");
+  process.exit(1);
+}
 
 async function main() {
-  const res = await fetch(CONNPASS_API_URL, {
+  const res = await fetch(API_URL, {
     headers: {
-      "User-Agent": "CoderDojo-Kawanishi-Website/1.0"
+      "X-API-Key": API_KEY,
+      "User-Agent": "coderdojo-kawanishi-site-updater/1.0"
     }
   });
 
   if (!res.ok) {
-    throw new Error(`connpass API request failed: ${res.status}`);
+    const text = await res.text();
+    throw new Error(`connpass API error: ${res.status}\n${text}`);
   }
 
-  const data = await res.json();
+  const json = await res.json();
   const now = new Date();
 
-  const futureEvents = (data.events || [])
+  const futureEvents = (json.events || [])
     .filter(ev => new Date(ev.started_at) >= now)
     .sort((a, b) => new Date(a.started_at) - new Date(b.started_at))
     .map(ev => ({
       title: ev.title,
       start: ev.started_at,
+      end: ev.ended_at,
       place: ev.place || ev.address || "",
       url: ev.event_url
     }));
@@ -35,7 +43,7 @@ async function main() {
     "utf-8"
   );
 
-  console.log(`Saved ${futureEvents.length} future events.`);
+  console.log(`Saved ${futureEvents.length} future event(s).`);
 }
 
 main().catch(err => {
