@@ -258,53 +258,72 @@ section {
   font-size: 1.05rem;
 }
 
-.history-list {
+.history-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
-.history-card {
-  display: block;
-  text-align: left;
-  background: white;
-  padding: 1.5rem;
-  border-radius: 1rem;
+.history-entry {
+  background: #f3f3f3;
+  border-radius: 0.8rem;
+  overflow: hidden;
   box-shadow: 0 4px 10px var(--shadow);
-  text-decoration: none;
-  color: var(--text-dark);
-  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
-.history-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
-  color: var(--text-dark);
-}
-
-.history-date {
-  display: inline-block;
-  font-size: 0.95rem;
-  color: var(--accent-blue);
+.history-entry-date {
+  background: #eeeeee;
+  color: #7a9c35;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 0.8rem;
+  text-align: center;
+  padding: 1rem 1rem 0.8rem;
 }
 
-.history-title {
-  font-size: 1.2rem;
-  margin-bottom: 0.8rem;
+.history-entry-title {
+  background: #7da63a;
+  color: white;
+  font-size: 1.9rem;
+  line-height: 1.5;
+  text-align: center;
+  margin: 0;
+  padding: 1.2rem 1.2rem;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.history-entry-text {
   color: var(--text-dark);
+  font-size: 1rem;
+  line-height: 1.9;
+  padding: 1.4rem 1.5rem 0;
+  margin: 0;
+  flex-grow: 1;
 }
 
-.history-summary {
-  font-size: 0.98rem;
-  margin-bottom: 1rem;
-}
-
-.history-link {
-  color: var(--accent-blue);
+.history-entry-button {
+  display: inline-block;
+  align-self: center;
+  margin: 1.5rem 0 1.8rem;
+  background: var(--accent-blue);
+  color: white;
+  text-decoration: none;
   font-weight: bold;
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.history-entry-button:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  color: white;
 }
 
 /* 主催者情報 */
@@ -321,6 +340,17 @@ section {
 .organizer-section p {
   font-size: 1.1rem;
   line-height: 2;
+}
+
+.organizer-image {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 10px var(--shadow);
 }
 
 /* フッター */
@@ -369,8 +399,18 @@ footer {
     font-size: 1.2rem;
   }
 
-  .history-card {
-    padding: 1.2rem;
+  .history-entry-date {
+    font-size: 1.5rem;
+  }
+
+  .history-entry-title {
+    font-size: 1.5rem;
+    min-height: auto;
+  }
+
+  .organizer-image {
+    width: 200px;
+    height: 200px;
   }
 }
 
