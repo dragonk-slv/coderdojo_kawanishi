@@ -138,6 +138,39 @@
       });
 
       loadEvents();
+
+      // 過去の開催履歴：6件以上なら省略
+      const historyEntries = document.querySelectorAll("#history-grid .history-entry");
+      const historyToggleButton = document.getElementById("history-toggle-button");
+      const visibleCount = 6;
+      let historyExpanded = false;
+
+      if (historyEntries.length <= visibleCount) {
+        if (historyToggleButton) {
+          historyToggleButton.style.display = "none";
+        }
+      } else {
+        historyEntries.forEach((entry, index) => {
+          if (index >= visibleCount) {
+            entry.classList.add("is-hidden");
+          }
+        });
+
+        if (historyToggleButton) {
+          historyToggleButton.addEventListener("click", () => {
+            historyExpanded = !historyExpanded;
+
+            historyEntries.forEach((entry, index) => {
+              if (index >= visibleCount) {
+                entry.classList.toggle("is-hidden", !historyExpanded);
+              }
+            });
+
+            historyToggleButton.textContent = historyExpanded ? "閉じる" : "もっと見る...";
+            historyToggleButton.setAttribute("aria-expanded", historyExpanded ? "true" : "false");
+          });
+        }
+      }
     });
   </script>
 </head>
@@ -215,97 +248,108 @@
     </div>
   </section>
 
-<section id="history" class="history-section">
-  <div class="container">
-    <h2 class="section-title">過去の開催履歴</h2>
-    <p class="history-lead">
-      これまでのCoderDojo川西の開催記録です。各回のレポートは、下のボタンからご覧いただけます。
-    </p>
+  <section id="history" class="history-section">
+    <div class="container">
+      <h2 class="section-title">過去の開催履歴</h2>
+      <p class="history-lead">
+        これまでのCoderDojo川西の開催記録です。各回のレポートは、下のボタンからご覧いただけます。
+      </p>
 
-    <div class="history-grid" id="history-grid">
-      <article class="history-entry">
-        <div class="history-entry-date">2025/08/24</div>
-        <h3 class="history-entry-title">第12回 CoderDojo川西を開催しました</h3>
-        <p class="history-entry-text">
-          ScratchやMinecraftを使った作品づくりを行いました。発表タイムでは、それぞれの工夫や発想が光る回となりました。
-        </p>
-        <a href="reports/report-2025-08-24.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
-          レポートを見る
-        </a>
-      </article>
+      <div class="history-grid" id="history-grid">
+        <article class="history-entry">
+          <div class="history-entry-date">2025/08/24</div>
+          <h3 class="history-entry-title">第12回 CoderDojo川西を開催しました</h3>
+          <p class="history-entry-text">
+            ScratchやMinecraftを使った作品づくりを行いました。発表タイムでは、それぞれの工夫や発想が光る回となりました。
+          </p>
+          <a href="reports/report-2025-08-24.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
+            レポートを見る
+          </a>
+        </article>
 
-      <article class="history-entry">
-        <div class="history-entry-date">2025/07/20</div>
-        <h3 class="history-entry-title">第11回 CoderDojo川西を開催しました</h3>
-        <p class="history-entry-text">
-          初参加のニンジャも交えながら、ゲーム制作やWebページ作成に取り組みました。交流の多いにぎやかな回になりました。
-        </p>
-        <a href="reports/report-2025-07-20.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
-          レポートを見る
-        </a>
-      </article>
+        <article class="history-entry">
+          <div class="history-entry-date">2025/07/20</div>
+          <h3 class="history-entry-title">第11回 CoderDojo川西を開催しました</h3>
+          <p class="history-entry-text">
+            初参加のニンジャも交えながら、ゲーム制作やWebページ作成に取り組みました。交流の多いにぎやかな回になりました。
+          </p>
+          <a href="reports/report-2025-07-20.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
+            レポートを見る
+          </a>
+        </article>
 
-      <article class="history-entry">
-        <div class="history-entry-date">2025/06/15</div>
-        <h3 class="history-entry-title">第10回 CoderDojo川西を開催しました</h3>
-        <p class="history-entry-text">
-          発表中心の回として開催し、子どもたちが自分の作品や学びを堂々と共有してくれました。
-        </p>
-        <a href="reports/report-2025-06-15.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
-          レポートを見る
-        </a>
-      </article>
+        <article class="history-entry">
+          <div class="history-entry-date">2025/06/15</div>
+          <h3 class="history-entry-title">第10回 CoderDojo川西を開催しました</h3>
+          <p class="history-entry-text">
+            発表中心の回として開催し、子どもたちが自分の作品や学びを堂々と共有してくれました。
+          </p>
+          <a href="reports/report-2025-06-15.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
+            レポートを見る
+          </a>
+        </article>
 
-      <article class="history-entry">
-        <div class="history-entry-date">2025/05/18</div>
-        <h3 class="history-entry-title">第9回 CoderDojo川西を開催しました</h3>
-        <p class="history-entry-text">
-          Scratch作品づくりを中心に進め、それぞれが自分のアイデアを形にする時間となりました。
-        </p>
-        <a href="reports/report-2025-05-18.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
-          レポートを見る
-        </a>
-      </article>
+        <article class="history-entry">
+          <div class="history-entry-date">2025/05/18</div>
+          <h3 class="history-entry-title">第9回 CoderDojo川西を開催しました</h3>
+          <p class="history-entry-text">
+            Scratch作品づくりを中心に進め、それぞれが自分のアイデアを形にする時間となりました。
+          </p>
+          <a href="reports/report-2025-05-18.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
+            レポートを見る
+          </a>
+        </article>
 
-      <article class="history-entry">
-        <div class="history-entry-date">2025/04/20</div>
-        <h3 class="history-entry-title">第8回 CoderDojo川西を開催しました</h3>
-        <p class="history-entry-text">
-          初心者向けのサポートをしながら、作品発表まで楽しく取り組みました。
-        </p>
-        <a href="reports/report-2025-04-20.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
-          レポートを見る
-        </a>
-      </article>
+        <article class="history-entry">
+          <div class="history-entry-date">2025/04/20</div>
+          <h3 class="history-entry-title">第8回 CoderDojo川西を開催しました</h3>
+          <p class="history-entry-text">
+            初心者向けのサポートをしながら、作品発表まで楽しく取り組みました。
+          </p>
+          <a href="reports/report-2025-04-20.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
+            レポートを見る
+          </a>
+        </article>
 
-      <article class="history-entry">
-        <div class="history-entry-date">2025/03/16</div>
-        <h3 class="history-entry-title">第7回 CoderDojo川西を開催しました</h3>
-        <p class="history-entry-text">
-          Web制作やゲームづくりなど、さまざまなテーマに挑戦した回となりました。
-        </p>
-        <a href="reports/report-2025-03-16.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
-          レポートを見る
-        </a>
-      </article>
+        <article class="history-entry">
+          <div class="history-entry-date">2025/03/16</div>
+          <h3 class="history-entry-title">第7回 CoderDojo川西を開催しました</h3>
+          <p class="history-entry-text">
+            Web制作やゲームづくりなど、さまざまなテーマに挑戦した回となりました。
+          </p>
+          <a href="reports/report-2025-03-16.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
+            レポートを見る
+          </a>
+        </article>
 
-      <article class="history-entry">
-        <div class="history-entry-date">2025/02/16</div>
-        <h3 class="history-entry-title">第6回 CoderDojo川西を開催しました</h3>
-        <p class="history-entry-text">
-          継続参加のニンジャたちが前回からの作品をさらに発展させてくれました。
-        </p>
-        <a href="reports/report-2025-02-16.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
-          レポートを見る
-        </a>
-      </article>
+        <article class="history-entry">
+          <div class="history-entry-date">2025/02/16</div>
+          <h3 class="history-entry-title">第6回 CoderDojo川西を開催しました</h3>
+          <p class="history-entry-text">
+            継続参加のニンジャたちが前回からの作品をさらに発展させてくれました。
+          </p>
+          <a href="reports/report-2025-02-16.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
+            レポートを見る
+          </a>
+        </article>
+
+        <article class="history-entry">
+          <div class="history-entry-date">2025/01/19</div>
+          <h3 class="history-entry-title">第5回 CoderDojo川西を開催しました</h3>
+          <p class="history-entry-text">
+            初参加の子どもたちも交え、Scratchやプログラミング体験を楽しみながら進めました。
+          </p>
+          <a href="reports/report-2025-01-19.html" class="history-entry-button" target="_blank" rel="noopener noreferrer">
+            レポートを見る
+          </a>
+        </article>
+      </div>
+
+      <button id="history-toggle-button" class="history-toggle-button" type="button" aria-expanded="false">
+        もっと見る...
+      </button>
     </div>
-
-    <button id="history-toggle-button" class="history-toggle-button" type="button" aria-expanded="false">
-      もっと見る...
-    </button>
-  </div>
-</section>
+  </section>
 
   <section id="organizer" class="organizer-section">
     <div class="container">
