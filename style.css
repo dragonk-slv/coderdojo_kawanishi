@@ -275,6 +275,10 @@ section {
   height: 100%;
 }
 
+.history-entry.is-hidden {
+  display: none;
+}
+
 .history-entry-date {
   background: #eeeeee;
   color: #7a9c35;
@@ -324,6 +328,26 @@ section {
   background: var(--accent-light);
   transform: translateY(-2px);
   color: white;
+}
+
+.history-toggle-button {
+  display: inline-block;
+  margin-top: 2rem;
+  background: white;
+  color: var(--accent-blue);
+  border: 2px solid var(--accent-blue);
+  border-radius: 999px;
+  padding: 0.85rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.history-toggle-button:hover {
+  background: var(--accent-blue);
+  color: white;
+  transform: translateY(-2px);
 }
 
 /* 主催者情報 */
