@@ -109,7 +109,6 @@
           if (!res.ok) throw new Error("events.jsonの取得に失敗しました");
 
           const allEvents = await res.json();
-
           const now = new Date();
 
           futureEvents = allEvents
@@ -150,6 +149,7 @@
         <ul>
           <li><a href="#about-dojo">Dojo理念</a></li>
           <li><a href="#events">開催予定</a></li>
+          <li><a href="#history">過去の履歴</a></li>
           <li><a href="#organizer">主催者</a></li>
         </ul>
       </nav>
@@ -215,13 +215,45 @@
     </div>
   </section>
 
+  <section id="history" class="history-section">
+    <div class="container">
+      <h2 class="section-title">過去の開催履歴</h2>
+      <p class="history-lead">
+        これまでのCoderDojo川西の開催記録です。各回のレポートは、下のカードをクリックするとご覧いただけます。
+      </p>
+
+      <div class="history-list">
+        <a href="reports/report-2025-08-24.html" class="history-card" target="_blank" rel="noopener noreferrer">
+          <div class="history-date">2025年8月24日（日）</div>
+          <h3 class="history-title">第12回 CoderDojo川西</h3>
+          <p class="history-summary">ScratchやMinecraftを使った作品づくりを行いました。発表タイムではそれぞれの工夫が光る回になりました。</p>
+          <span class="history-link">レポートを見る →</span>
+        </a>
+
+        <a href="reports/report-2025-07-20.html" class="history-card" target="_blank" rel="noopener noreferrer">
+          <div class="history-date">2025年7月20日（日）</div>
+          <h3 class="history-title">第11回 CoderDojo川西</h3>
+          <p class="history-summary">初参加のニンジャも交えながら、ゲーム制作やWebページ作成に取り組みました。</p>
+          <span class="history-link">レポートを見る →</span>
+        </a>
+
+        <a href="reports/report-2025-06-15.html" class="history-card" target="_blank" rel="noopener noreferrer">
+          <div class="history-date">2025年6月15日（日）</div>
+          <h3 class="history-title">第10回 CoderDojo川西</h3>
+          <p class="history-summary">発表中心の回として開催し、子どもたちが自分の作品や学びを堂々と共有してくれました。</p>
+          <span class="history-link">レポートを見る →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section id="organizer" class="organizer-section">
     <div class="container">
       <h2 class="section-title">運営・主催者情報</h2>
 
       <div class="row justify-content-center">
         <div class="col-lg-4 text-center">
-          <img class="rounded-circle" width="260" height="260" src="Images/syusai.png" alt="主催者：飯干 功惺" focusable="false">
+          <img class="rounded-circle" width="260" height="260" src="Images/syusai2" alt="主催者：飯干 功惺" focusable="false">
           <h2>飯干 功惺</h2>
           <h5>
             <span class="badge rounded-pill bg-primary">Iiboshi Kosei</span>
