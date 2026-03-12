@@ -1,19 +1,19 @@
 import fs from "node:fs/promises";
 
 const API_KEY = process.env.CONNPASS_API_KEY;
-const SERIES_ID = process.env.CONNPASS_SERIES_ID;
+const SUBDOMAIN = process.env.CONNPASS_SUBDOMAIN;
 
 if (!API_KEY) {
   console.error("CONNPASS_API_KEY が設定されていません。");
   process.exit(1);
 }
 
-if (!SERIES_ID) {
-  console.error("CONNPASS_SERIES_ID が設定されていません。");
+if (!SUBDOMAIN) {
+  console.error("CONNPASS_SUBDOMAIN が設定されていません。");
   process.exit(1);
 }
 
-const API_URL = `https://connpass.com/api/v2/events?series_id=${SERIES_ID}&count=20&order=2`;
+const API_URL = `https://connpass.com/api/v2/events?subdomain=${encodeURIComponent(SUBDOMAIN)}&count=20&order=2`;
 
 async function main() {
   const res = await fetch(API_URL, {
@@ -30,7 +30,7 @@ async function main() {
 
   const json = await res.json();
 
-  console.log("SERIES_ID:", SERIES_ID);
+  console.log("SUBDOMAIN:", SUBDOMAIN);
   console.log("API_URL:", API_URL);
   console.log("raw events count:", (json.events || []).length);
   console.log("first raw event:", JSON.stringify(json.events?.[0] || {}, null, 2));
@@ -45,7 +45,7 @@ async function main() {
       start: ev.started_at,
       end: ev.ended_at,
       place: ev.place || ev.address || "",
-      url: ev.event_url
+      url: ev.event_url || ev.url || ""
     }));
 
   console.log("future events count:", futureEvents.length);
