@@ -2,7 +2,7 @@ name: Update connpass events
 
 on:
   schedule:
-  - cron: "*/5 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -24,7 +24,7 @@ jobs:
       - name: Update events.json from connpass
         env:
           CONNPASS_API_KEY: ${{ secrets.CONNPASS_API_KEY }}
-          CONNPASS_SERIES_ID: ${{ vars.CONNPASS_SERIES_ID }}
+          CONNPASS_SUBDOMAIN: ${{ vars.CONNPASS_SUBDOMAIN }}
         run: node scripts/update-events.mjs
 
       - name: Commit and push if changed
