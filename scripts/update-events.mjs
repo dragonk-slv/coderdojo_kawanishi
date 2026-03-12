@@ -1,11 +1,10 @@
 import fs from "node:fs/promises";
 
 const API_KEY = process.env.CONNPASS_API_KEY;
+const OWNER_NICKNAME = "coderdojo-takaraduka";
 
-// connpass グループ
-const GROUP = "coderdojo-takaraduka";
-
-const API_URL = `https://connpass.com/api/v2/events?nickname=${GROUP}&count=20&order=2`;
+// connpass API v2: owner_nickname を使う
+const API_URL = `https://connpass.com/api/v2/events?owner_nickname=${OWNER_NICKNAME}&count=50&order=2`;
 
 if (!API_KEY) {
   console.error("CONNPASS_API_KEY が設定されていません。");
@@ -13,11 +12,10 @@ if (!API_KEY) {
 }
 
 async function main() {
-
   const res = await fetch(API_URL, {
     headers: {
       "X-API-Key": API_KEY,
-      "User-Agent": "coderdojo-kawanishi-site-updater"
+      "User-Agent": "coderdojo-kawanishi-site-updater/1.0"
     }
   });
 
@@ -29,7 +27,9 @@ async function main() {
   const json = await res.json();
   const now = new Date();
 
+  // 念のため URL でも二重チェック
   const futureEvents = (json.events || [])
+    .filter(ev => ev.event_url && ev.event_url.includes("coderdojo-takaraduka.connpass.com"))
     .filter(ev => new Date(ev.started_at) >= now)
     .sort((a, b) => new Date(a.started_at) - new Date(b.started_at))
     .map(ev => ({
@@ -41,14 +41,13 @@ async function main() {
     }));
 
   await fs.mkdir("./data", { recursive: true });
-
   await fs.writeFile(
     "./data/events.json",
     JSON.stringify(futureEvents, null, 2),
     "utf-8"
   );
 
-  console.log(`Saved ${futureEvents.length} events`);
+  console.log(`Saved ${futureEvents.length} future event(s).`);
 }
 
 main().catch(err => {
