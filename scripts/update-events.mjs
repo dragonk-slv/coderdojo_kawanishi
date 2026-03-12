@@ -13,8 +13,7 @@ if (!SERIES_ID) {
   process.exit(1);
 }
 
-// v1 APIに変更
-const API_URL = `https://connpass.com/api/v1/event/?series_id=${SERIES_ID}&count=20&order=2`;
+const API_URL = `https://connpass.com/api/v2/events?series_id=${SERIES_ID}&count=20&order=2`;
 
 async function main() {
   const res = await fetch(API_URL, {
