@@ -1,19 +1,13 @@
 import fs from "node:fs/promises";
 
 const API_KEY = process.env.CONNPASS_API_KEY;
-const SERIES_ID = process.env.CONNPASS_SERIES_ID;
+const SERIES_ID = process.env.CONNPASS_SERIES_ID || "16040"; // 実際のseries_idに変更
+const API_URL = `https://connpass.com/api/v2/events?series_id=${SERIES_ID}&count=20&order=2`;
 
 if (!API_KEY) {
   console.error("CONNPASS_API_KEY が設定されていません。");
   process.exit(1);
 }
-
-if (!SERIES_ID) {
-  console.error("CONNPASS_SERIES_ID が設定されていません。");
-  process.exit(1);
-}
-
-const API_URL = `https://connpass.com/api/v2/events?series_id=${SERIES_ID}&count=20&order=2`;
 
 async function main() {
   const res = await fetch(API_URL, {
@@ -32,7 +26,6 @@ async function main() {
   const now = new Date();
 
   const futureEvents = (json.events || [])
-    .filter(ev => ev.event_url && ev.event_url.includes("coderdojo-takaraduka.connpass.com"))
     .filter(ev => new Date(ev.started_at) >= now)
     .sort((a, b) => new Date(a.started_at) - new Date(b.started_at))
     .map(ev => ({
