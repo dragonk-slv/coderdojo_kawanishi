@@ -38,15 +38,15 @@ async function main() {
   const now = new Date();
 
   const futureEvents = (json.events || [])
-    .filter(ev => ev.started_at && new Date(ev.started_at) >= now)
-    .sort((a, b) => new Date(a.started_at) - new Date(b.started_at))
-    .map(ev => ({
-      title: ev.title,
-      start: ev.started_at,
-      end: ev.ended_at,
-      place: ev.place || ev.address || "",
-      url: ev.event_url || ev.url || ""
-    }));
+  .filter(ev => ev.started_at && new Date(ev.started_at) >= now)
+  .sort((a, b) => new Date(a.started_at) - new Date(b.started_at))
+  .map(ev => ({
+    title: ev.title,
+    start: ev.started_at,
+    end: ev.ended_at,
+    place: ev.place || ev.address || "",
+    url: ev.event_url || ev.url || ""
+  }));
 
   console.log("future events count:", futureEvents.length);
 
