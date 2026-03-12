@@ -88,6 +88,7 @@
           nextEventLink.rel = "noopener noreferrer";
           nextEventLink.style.display = "inline-block";
         } else {
+          nextEventLink.removeAttribute("href");
           nextEventLink.style.display = "none";
         }
 
@@ -112,7 +113,7 @@
           const now = new Date();
 
           futureEvents = allEvents
-            .filter(ev => new Date(ev.start) >= now)
+            .filter(ev => ev.start && new Date(ev.start) >= now)
             .sort((a, b) => new Date(a.start) - new Date(b.start));
 
           currentIndex = 0;
